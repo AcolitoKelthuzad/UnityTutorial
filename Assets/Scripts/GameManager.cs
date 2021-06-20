@@ -5,7 +5,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {   
     public static GameManager Instance;
-    [SerializeField] int tiempo = 30;
+
+    //las variables públicas son serializadas
+    public int tiempo = 60;
     [SerializeField] public int dificultad = 1;
     private void Awake() 
     {

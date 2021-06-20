@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
 
     //Si el enemigo golpea al jugador, le hace daño
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.CompareTag("Jugador"))
+        if (collision.CompareTag("Jugador") && !collision.GetComponent<Player>().invulnerable)
         {
             collision.GetComponent<Player>().RecibirDanio();
             

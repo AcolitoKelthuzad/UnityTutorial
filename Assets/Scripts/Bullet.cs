@@ -5,7 +5,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] float speed = 5;
-
+    public int durabilidad =1;
+    public bool powerShot=false;
     private void Start() 
     {
         //destruye a la bala después de 5 segundos
@@ -21,7 +22,14 @@ public class Bullet : MonoBehaviour
         if (collision.CompareTag("Enemigo"))
         {
             collision.GetComponent<Enemy>().RecibirDanio();
-            Destroy(gameObject);
+            if (!powerShot)
+                Destroy(gameObject);
+            
+            durabilidad--;
+            if (durabilidad <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

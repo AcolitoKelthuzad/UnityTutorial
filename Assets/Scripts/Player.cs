@@ -14,8 +14,11 @@ public class Player : MonoBehaviour
     [SerializeField] Transform bulletPrefab;
     [SerializeField] float cadencia=1;
     [SerializeField] int salud=5;
+    [SerializeField] int invulnerableTime = 3;
     bool armaCargada = true;
     Vector2 facingDirection;
+    bool powerShotEnabled = false;
+    public bool invulnerable=false;
     void Start()
     {
         print("Hola, soy un player visible... vamo");
@@ -41,7 +44,12 @@ public class Player : MonoBehaviour
             armaCargada = false;
             float angle= Mathf.Atan2(facingDirection.y,facingDirection.x) * Mathf.Rad2Deg;
             Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            Instantiate(bulletPrefab,transform.position, targetRotation);
+            //Instantiate(bulletPrefab,transform.position, targetRotation);
+            Transform bulletClone= Instantiate(bulletPrefab,transform.position, targetRotation);
+            if (powerShotEnabled)
+            {
+                bulletClone.GetComponent<Bullet>().powerShot = true;
+            }
             StartCoroutine(RecargarArma());
             
         }
@@ -54,10 +62,35 @@ public class Player : MonoBehaviour
     }
 
     public void RecibirDanio(){
+        if (invulnerable)
+            return;
+
         salud-- ;
+        invulnerable=true;
         if (salud<=0)
         {
             //game over
+        }
+        StartCoroutine(Invulnerabilidad());
+    }
+    IEnumerator Invulnerabilidad(){
+        yield return new WaitForSeconds(invulnerableTime);
+        invulnerable=false;
+    }
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.CompareTag("PowerUp"))
+        {
+            switch (collision.GetComponent<PowerUp>().powerUpType)
+            {
+                case PowerUp.PowerUpType.FireRateIncrease:
+                    cadencia++;
+                    break;
+                case PowerUp.PowerUpType.PowerShot:
+                    powerShotEnabled = true;
+                    // collision.GetComponent<Bullet>().durabilidad++;
+                    break;
+            }
+            Destroy(collision.gameObject,0.1f);
         }
     }
 }
