@@ -125,6 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   salud: 3
   velocidad: 5
+  scorePoints: 200
 --- !u!50 &6154508288418477692
 Rigidbody2D:
   serializedVersion: 4

@@ -9,6 +9,17 @@ public class GameManager : MonoBehaviour
     //las variables públicas son serializadas
     public int tiempo = 60;
     [SerializeField] public int dificultad = 1;
+    [SerializeField] int score;
+    public int Score{
+        get => score;
+        set {
+            score = value;
+            if (score % 1000 == 0)
+            {
+                dificultad++;
+            }
+        }
+    }
     private void Awake() 
     {
         if (Instance==null)
