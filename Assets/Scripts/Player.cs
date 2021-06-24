@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     float horizontal;
     float vertical;
     Vector3 moveDirection;
-    [SerializeField] float velocidad= 3;
+    public float velocidad= 3;
     // Start is called before the first frame update. solo se ejecuta una vez, al inicio
     [SerializeField] Transform aim;
     [SerializeField] Camera camera;
