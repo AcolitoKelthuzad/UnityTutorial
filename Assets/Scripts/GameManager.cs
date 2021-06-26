@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {   
@@ -10,10 +11,13 @@ public class GameManager : MonoBehaviour
     public int tiempo = 60;
     [SerializeField] public int dificultad = 1;
     [SerializeField] int score;
+    public bool gameOver=false;
+
     public int Score{
         get => score;
         set {
             score = value;
+            UIManager.Instance.ActualizarUIScore(score);
             if (score % 1000 == 0)
             {
                 dificultad++;
@@ -39,6 +43,12 @@ public class GameManager : MonoBehaviour
             tiempo--;
         }
 
-        //Game over
+        gameOver=true;
+        UIManager.Instance.ShowGameOverScreen();
+    }
+    public void PlayAgain(){
+        Time.timeScale=1;
+        UIManager.Instance.gameOverScreen.SetActive(false);
+        SceneManager.LoadScene("Game");
     }
 }

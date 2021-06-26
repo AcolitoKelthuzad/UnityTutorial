@@ -19,6 +19,14 @@ public class Player : MonoBehaviour
     Vector2 facingDirection;
     bool powerShotEnabled = false;
     public bool invulnerable=false;
+    public int Salud{
+        get => salud;
+        set {
+            salud = value;
+            UIManager.Instance.ActualizarUISalud(salud);
+        }
+    }
+
     void Start()
     {
         print("Hola, soy un player visible... vamo");
@@ -65,11 +73,12 @@ public class Player : MonoBehaviour
         if (invulnerable)
             return;
 
-        salud-- ;
+        Salud-- ;
         invulnerable=true;
-        if (salud<=0)
+        if (Salud<=0)
         {
-            //game over
+            GameManager.Instance.gameOver=true;
+            UIManager.Instance.ShowGameOverScreen();
         }
         StartCoroutine(Invulnerabilidad());
     }
