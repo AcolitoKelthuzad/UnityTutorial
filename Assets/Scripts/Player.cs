@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     Vector2 facingDirection;
     bool powerShotEnabled = false;
     public bool invulnerable=false;
+    [SerializeField] Animator anim;
+    [SerializeField] SpriteRenderer spriteRenderer;
     public int Salud{
         get => salud;
         set {
@@ -60,6 +62,15 @@ public class Player : MonoBehaviour
             }
             StartCoroutine(RecargarArma());
             
+        }
+
+        anim.SetFloat("Velocidad",moveDirection.magnitude);
+        if (aim.position.x > transform.position.x)
+        {
+            spriteRenderer.flipX=true;
+        }else if(aim.position.x < transform.position.x)
+        {
+            spriteRenderer.flipX=false;
         }
     }
     
