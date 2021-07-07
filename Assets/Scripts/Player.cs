@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] Transform aim;
     [SerializeField] Camera camera;
     [SerializeField] Transform bulletPrefab;
-    [SerializeField] float cadencia=1;
+    public float cadencia=1;
     [SerializeField] int salud=5;
     [SerializeField] int invulnerableTime = 3;
     bool armaCargada = true;

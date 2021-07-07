@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] float speed = 5;
     public int durabilidad =1;
     public bool powerShot=false;
+    // [SerializeField] Animator bulletAnim;
     private void Start() 
     {
         //destruye a la bala después de 5 segundos
@@ -15,6 +16,7 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         transform.position+= transform.right * Time.deltaTime * speed;
+        // bulletAnim.SetFloat("Cadencia",GetComponent<Player>().cadencia);
     }
 
     //si la bala golpea un enemigo se le quita daño y se destruye
