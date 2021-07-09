@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     [SerializeField] Animator anim;
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] float blinkRate = 1;
+    CameraController camController;
     public int Salud{
         get => salud;
         set {
@@ -39,7 +40,7 @@ public class Player : MonoBehaviour
     }
     void Start()
     {
-        print("Hola, soy un player visible... vamo");
+        camController=FindObjectOfType<CameraController>();
     }
 
     // Update se utiliza en cada frame, es decir mientras el programa esté corriendo
@@ -94,6 +95,7 @@ public class Player : MonoBehaviour
 
         Salud-- ;
         invulnerable=true;
+        camController.Shake();
         if (Salud<=0)
         {
             GameManager.Instance.gameOver=true;
