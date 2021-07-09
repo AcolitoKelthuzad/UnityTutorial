@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance;
     float horizontal;
     float vertical;
     Vector3 moveDirection;
@@ -28,7 +29,13 @@ public class Player : MonoBehaviour
             UIManager.Instance.ActualizarUISalud(salud);
         }
     }
-
+    private void Awake() 
+    {
+        if (Instance==null)
+        {
+            Instance=this;
+        }
+    }
     void Start()
     {
         print("Hola, soy un player visible... vamo");

@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public int dificultad = 1;
     [SerializeField] int score;
     public bool gameOver=false;
+    public bool gameStandby=true;
 
     public int Score{
         get => score;
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start() {
+        UIManager.Instance.ShowPantallaInicio();
         StartCoroutine(ContadorRutina());
     }
 
@@ -41,14 +43,53 @@ public class GameManager : MonoBehaviour
         while(tiempo>0){
             yield return new WaitForSeconds(1);
             tiempo--;
+            UIManager.Instance.ActualizarUITiempo(tiempo);
         }
 
         gameOver=true;
         UIManager.Instance.ShowGameOverScreen();
     }
     public void PlayAgain(){
+        LimpiarPantalla();
         Time.timeScale=1;
         UIManager.Instance.gameOverScreen.SetActive(false);
-        SceneManager.LoadScene("Game");
+        StartCoroutine(ContadorRutina());
+        // SceneManager.LoadScene("Game");
+    }
+    public void IniciarJuego(){
+        gameStandby=false;
+        // activar los componentes
+        Time.timeScale=1;
+        UIManager.Instance.startScreen.SetActive(false);
+        // SceneManager.LoadScene("Game");
+    }
+    private void LimpiarPantalla(){
+        var enemigos = GameObject.FindGameObjectsWithTag("Enemigo");
+        foreach (var enemigo in enemigos)
+        {
+            Destroy(enemigo);
+        }
+        var powerups = GameObject.FindGameObjectsWithTag("PowerUp");
+        foreach (var powerup in powerups)
+        {
+            Destroy(powerup);
+        }
+        var checks = GameObject.FindGameObjectsWithTag("Checkpoint");
+        foreach (var check in checks)
+        {
+            Destroy(check);
+        }
+
+        // reiniciar tiempo
+        tiempo=5;
+
+        // reiniciar score
+        Score = 0;
+        
+        // reubicar
+        Player.Instance.transform.position=new Vector2(0,0);
+
+        // reiniciar salud
+        Player.Instance.Salud=5;
     }
 }

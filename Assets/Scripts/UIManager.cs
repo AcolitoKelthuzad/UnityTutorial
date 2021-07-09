@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Text tiempoText;
     public GameObject gameOverScreen;
     [SerializeField] Text finalScore;
+    public GameObject startScreen;
 
     private void Awake() {
         if (Instance==null)
@@ -32,5 +33,9 @@ public class UIManager : MonoBehaviour
         Time.timeScale=0;
         gameOverScreen.SetActive(true);
         finalScore.text="SCORE: "+GameManager.Instance.Score;
+    }
+    public void ShowPantallaInicio(){
+        Time.timeScale=0;
+        startScreen.SetActive(true);
     }
 }
