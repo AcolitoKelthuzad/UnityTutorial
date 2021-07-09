@@ -177,6 +177,8 @@ MonoBehaviour:
   salud: 3
   velocidad: 5
   scorePoints: 200
+  impactClip: {fileID: 8300000, guid: de9e33dbe81a91342af9c9c7fdbd5680, type: 3}
+  deathClip: {fileID: 8300000, guid: 067a7c8d65717ab479c9ec99eb4abc8f, type: 3}
 --- !u!50 &6154508288418477692
 Rigidbody2D:
   serializedVersion: 4

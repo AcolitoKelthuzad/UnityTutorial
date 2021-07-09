@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] int salud = 1;
     [SerializeField] float velocidad = 1;
     [SerializeField] int scorePoints = 100;
+    [SerializeField] AudioClip impactClip;
+    [SerializeField] AudioClip deathClip;
     private void Start()
     {
         player = FindObjectOfType<Player>().transform;
@@ -24,10 +26,13 @@ public class Enemy : MonoBehaviour
     }
     public void RecibirDanio(){
         salud--;
+        AudioSource.PlayClipAtPoint(impactClip,transform.position);
+
         if (salud<=0)
         {
             GameManager.Instance.Score +=scorePoints;
-            Destroy(gameObject);
+            Destroy(gameObject,0.1f);
+            AudioSource.PlayClipAtPoint(deathClip,transform.position);
         }
     }
 
