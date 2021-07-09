@@ -1766,7 +1766,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Juego piola
+  m_Text: Juego epico
 --- !u!222 &549526315
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4165,6 +4165,7 @@ MonoBehaviour:
   invulnerable: 0
   anim: {fileID: 1778001683}
   spriteRenderer: {fileID: 1778001682}
+  blinkRate: 0.01
 --- !u!61 &1551067579
 BoxCollider2D:
   m_ObjectHideFlags: 0

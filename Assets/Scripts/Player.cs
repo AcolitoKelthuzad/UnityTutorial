@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     public bool invulnerable=false;
     [SerializeField] Animator anim;
     [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] float blinkRate = 1;
     public int Salud{
         get => salud;
         set {
@@ -101,8 +102,20 @@ public class Player : MonoBehaviour
         StartCoroutine(Invulnerabilidad());
     }
     IEnumerator Invulnerabilidad(){
+        StartCoroutine(BlinkRoutine());
         yield return new WaitForSeconds(invulnerableTime);
         invulnerable=false;
+    }
+    IEnumerator BlinkRoutine(){
+        int t=10;
+        while (t>0)
+        {
+            spriteRenderer.enabled=false;
+            yield return new WaitForSeconds(t * blinkRate);
+            spriteRenderer.enabled=true;
+            yield return new WaitForSeconds(t * blinkRate);
+            t--;
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("PowerUp"))
